@@ -4,3 +4,5 @@ export { AssessmentTable } from './AssessmentTable';
 export { AssessmentCard } from './AssessmentCard';
 export { Pagination } from './Pagination';
 export { AssessmentDetail } from './AssessmentDetail';
+export { StatusBadge } from './StatusBadge';
+export { ScoreBar } from './ScoreBar';

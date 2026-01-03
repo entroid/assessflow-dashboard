@@ -3,13 +3,32 @@ import {
   StatsCard,
   FilterBar,
   AssessmentTable,
+  AssessmentCard,
   Pagination,
   AssessmentDetail
 } from './components/dashboard';
 import { Button } from './components/ui/button';
 import { Plus } from 'lucide-react';
+import { useAssessments } from './hooks/useAssessments';
 
 function App() {
+  const {
+    stats,
+    assessments,
+    totalAssessments,
+    assessmentTypes,
+    statusOptions,
+    filters,
+    currentPage,
+    pageSize,
+    selectedAssessment,
+    isDetailOpen,
+    onFilterChange,
+    onPageChange,
+    onSelectAssessment,
+    onCloseDetail,
+  } = useAssessments();
+
   return (
     <MainLayout>
       {/* Page Header */}
@@ -29,26 +48,97 @@ function App() {
           </Button>
         </div>
 
-        {/* Stats Grid - Placeholder */}
+        {/* Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <StatsCard />
-          <StatsCard />
-          <StatsCard />
-          <StatsCard />
+          <StatsCard
+            label="Total Assessments"
+            value={stats.totalAssessments}
+            trend={stats.totalAssessmentsTrend}
+            icon="document"
+            iconColor="blue"
+          />
+          <StatsCard
+            label="Completed"
+            value={stats.completed}
+            trend={stats.completedTrend}
+            icon="check"
+            iconColor="green"
+          />
+          <StatsCard
+            label="In Progress"
+            value={stats.inProgress}
+            trend={stats.inProgressTrend}
+            icon="clock"
+            iconColor="yellow"
+          />
+          <StatsCard
+            label="Active Patients"
+            value={stats.activePatients}
+            icon="users"
+            iconColor="purple"
+          />
         </div>
 
-        {/* Filter Bar - Placeholder */}
-        <FilterBar />
+        {/* Filter Bar */}
+        <FilterBar
+          filters={filters}
+          onFilterChange={onFilterChange}
+          assessmentTypes={assessmentTypes}
+          statusOptions={statusOptions}
+        />
       </div>
 
-      {/* Table Container - Placeholder */}
-      <div className="bg-white border border-[var(--color-gray-200)] rounded-xl overflow-hidden">
-        <AssessmentTable />
-        <Pagination />
+      {/* Table Container - Desktop */}
+      <div className="hidden md:block bg-white border border-[var(--color-gray-200)] rounded-xl overflow-hidden">
+        <AssessmentTable
+          assessments={assessments}
+          onRowClick={onSelectAssessment}
+        />
+        <Pagination
+          pagination={{
+            currentPage,
+            pageSize,
+            totalItems: totalAssessments,
+          }}
+          onPageChange={onPageChange}
+        />
       </div>
 
-      {/* Detail Panel - Placeholder */}
-      <AssessmentDetail />
+      {/* Card Layout - Mobile */}
+      <div className="md:hidden space-y-4">
+        {assessments.length === 0 ? (
+          <div className="p-8 text-center bg-white border border-[var(--color-gray-200)] rounded-xl">
+            <p className="text-[var(--color-gray-500)]">No assessments found matching your criteria.</p>
+          </div>
+        ) : (
+          assessments.map((assessment) => (
+            <AssessmentCard
+              key={assessment.id}
+              assessment={assessment}
+              onClick={() => onSelectAssessment(assessment)}
+            />
+          ))
+        )}
+        <div className="bg-white border border-[var(--color-gray-200)] rounded-xl overflow-hidden">
+          <Pagination
+            pagination={{
+              currentPage,
+              pageSize,
+              totalItems: totalAssessments,
+            }}
+            onPageChange={onPageChange}
+          />
+        </div>
+      </div>
+
+      {/* Detail Panel - Placeholder for now */}
+      {isDetailOpen && (
+        <AssessmentDetail
+          assessment={selectedAssessment}
+          isOpen={isDetailOpen}
+          onClose={onCloseDetail}
+        />
+      )}
     </MainLayout>
   );
 }
