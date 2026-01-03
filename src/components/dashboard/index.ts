@@ -6,3 +6,4 @@ export { Pagination } from './Pagination';
 export { AssessmentDetail } from './AssessmentDetail';
 export { StatusBadge } from './StatusBadge';
 export { ScoreBar } from './ScoreBar';
+export { ScoreGauge } from './ScoreGauge';
