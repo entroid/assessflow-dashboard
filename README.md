@@ -1,73 +1,60 @@
-# React + TypeScript + Vite
+# AssessFlow Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A professional, responsive Patient Assessment Dashboard built with React, TypeScript, and Tailwind CSS. This project demonstrates a mobile-first approach to complex medical data visualization and management.
 
-Currently, two official plugins are available:
+## Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
 
-## React Compiler
+### Local Installation
+1. Clone the repository
+2. Navigate to the project directory:
+   ```bash
+   cd assessflow-dashboard
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+5. Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Building for Production
+```bash
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ Tech Stack
+- **Framework:** React 19 (Vite)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS 4
+- **Components:** ShadCN UI (Primitives)
+- **Icons:** Lucide React
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 💡 Engineering Approach
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 1. Feature-Based Architecture
+The project follows a modular "Feature-Based Architecture". Instead of grouping files purely by type (components, hooks), related logic is grouped into functional features (e.g., `src/features/dashboard`). This makes the codebase highly scalable and easier to maintain as new domains (Patients, Reports) are added.
+
+### 2. Design System & Tokens
+A robust design system was implemented using CSS custom properties (`--space-1`, `--color-primary-600`, etc.). This ensures pixel-perfect consistency with the design specification across padding, margins, and visual elements while allowing for easy theme updates.
+
+### 3. Responsive Strategy
+The dashboard uses a layout-switching strategy:
+- **Desktop:** A high-density data table with detailed actions.
+- **Mobile:** A card-based list view optimized for touch and smaller viewports.
+- **Shared Primitives:** Common data badges and score visualizations are shared across both layouts.
+
+## 🧠 Key Decisions & Assumptions
+- **Client-Side Processing:** As the project currently uses mock data, all filtering, searching, and pagination logic is handled in the frontend via a custom `useAssessments` hook.
+- **Tailwind 4 Integration:** Leveraged the latest Tailwind CSS 4 features, including simplified configuration and better support for CSS variables.
+- **Accessibility:** Built on top of Radix primitives (via ShadCN) to ensure proper keyboard navigation and screen reader support for complex components like the slide-over detail panel.
+
+## ⏱️ Project Summary
+- **Total Time Spent:** ~5 hours
+- **Status:** Complete (Feature-complete & Verified Layout)

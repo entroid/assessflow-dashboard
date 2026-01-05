@@ -12,6 +12,7 @@ export function useAssessments() {
         search: '',
         status: '',
         type: '',
+        last30Days: false,
     });
 
     const [currentPage, setCurrentPage] = useState(1);

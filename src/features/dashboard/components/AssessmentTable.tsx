@@ -17,7 +17,7 @@ import type { AssessmentTableProps } from '@/types';
 export function AssessmentTable({ assessments, onRowClick }: AssessmentTableProps) {
     if (assessments.length === 0) {
         return (
-            <div className="p-12 text-center">
+            <div className="p-[var(--space-12)] text-center">
                 <p className="text-[var(--color-gray-500)]">No assessments found matching your criteria.</p>
             </div>
         );
@@ -27,22 +27,22 @@ export function AssessmentTable({ assessments, onRowClick }: AssessmentTableProp
         <Table>
             <TableHeader>
                 <TableRow className="bg-[var(--color-gray-50)] hover:bg-[var(--color-gray-50)]">
-                    <TableHead className="text-xs font-semibold text-[var(--color-gray-500)] uppercase tracking-wider pl-6">
+                    <TableHead className="text-xs font-semibold text-[var(--color-gray-500)] uppercase tracking-wider py-[var(--space-4)] pl-[var(--space-6)]">
                         Patient
                     </TableHead>
-                    <TableHead className="text-xs font-semibold text-[var(--color-gray-500)] uppercase tracking-wider">
+                    <TableHead className="text-xs font-semibold text-[var(--color-gray-500)] uppercase tracking-wider py-[var(--space-4)]">
                         Assessment Type
                     </TableHead>
-                    <TableHead className="text-xs font-semibold text-[var(--color-gray-500)] uppercase tracking-wider">
+                    <TableHead className="text-xs font-semibold text-[var(--color-gray-500)] uppercase tracking-wider py-[var(--space-4)]">
                         Status
                     </TableHead>
-                    <TableHead className="text-xs font-semibold text-[var(--color-gray-500)] uppercase tracking-wider">
+                    <TableHead className="text-xs font-semibold text-[var(--color-gray-500)] uppercase tracking-wider py-[var(--space-4)]">
                         Score
                     </TableHead>
-                    <TableHead className="text-xs font-semibold text-[var(--color-gray-500)] uppercase tracking-wider">
+                    <TableHead className="text-xs font-semibold text-[var(--color-gray-500)] uppercase tracking-wider py-[var(--space-4)]">
                         Date
                     </TableHead>
-                    <TableHead className="text-xs font-semibold text-[var(--color-gray-500)] uppercase tracking-wider pr-6">
+                    <TableHead className="text-xs font-semibold text-[var(--color-gray-500)] uppercase tracking-wider py-[var(--space-4)] pr-[var(--space-6)]">
                         Actions
                     </TableHead>
                 </TableRow>
@@ -55,14 +55,14 @@ export function AssessmentTable({ assessments, onRowClick }: AssessmentTableProp
                         onClick={() => onRowClick(assessment)}
                     >
                         {/* Patient Cell */}
-                        <TableCell className="pl-6">
-                            <div className="flex items-center gap-3">
+                        <TableCell className="pl-[var(--space-6)] py-[var(--space-4)]">
+                            <div className="flex items-center gap-[var(--space-3)]">
                                 <Avatar className="w-10 h-10">
                                     <AvatarFallback className="bg-[var(--color-gray-100)] text-[var(--color-gray-600)] text-sm font-semibold">
                                         {assessment.patient.initials}
                                     </AvatarFallback>
                                 </Avatar>
-                                <div className="flex flex-col gap-0.5">
+                                <div className="flex flex-col gap-[var(--space-1)]">
                                     <span className="font-semibold text-[var(--color-gray-900)]">
                                         {assessment.patient.name}
                                     </span>
@@ -74,8 +74,8 @@ export function AssessmentTable({ assessments, onRowClick }: AssessmentTableProp
                         </TableCell>
 
                         {/* Assessment Type Cell */}
-                        <TableCell>
-                            <div className="flex items-center gap-2">
+                        <TableCell className="py-[var(--space-4)]">
+                            <div className="flex items-center gap-[var(--space-2)]">
                                 <div className="w-7 h-7 rounded-md bg-[var(--color-gray-100)] flex items-center justify-center">
                                     <FileText className="w-3.5 h-3.5 text-[var(--color-gray-600)]" />
                                 </div>
@@ -86,18 +86,18 @@ export function AssessmentTable({ assessments, onRowClick }: AssessmentTableProp
                         </TableCell>
 
                         {/* Status Cell */}
-                        <TableCell>
+                        <TableCell className="py-[var(--space-4)]">
                             <StatusBadge status={assessment.status} />
                         </TableCell>
 
                         {/* Score Cell */}
-                        <TableCell>
-                            <ScoreBar score={assessment.score} />
+                        <TableCell className="py-[var(--space-4)]">
+                            <ScoreBar className="w-[60px]" score={assessment.score} />
                         </TableCell>
 
                         {/* Date Cell */}
-                        <TableCell>
-                            <div className="flex flex-col gap-0.5">
+                        <TableCell className="py-[var(--space-4)]">
+                            <div className="flex flex-col gap-[var(--space-1)]">
                                 <span className="font-medium text-[var(--color-gray-800)]">
                                     {formatDate(assessment.date)}
                                 </span>
@@ -108,12 +108,12 @@ export function AssessmentTable({ assessments, onRowClick }: AssessmentTableProp
                         </TableCell>
 
                         {/* Actions Cell */}
-                        <TableCell className="pr-6" onClick={(e) => e.stopPropagation()}>
-                            <div className="flex items-center gap-1">
+                        <TableCell className="pr-[var(--space-6)]" onClick={(e) => e.stopPropagation()}>
+                            <div className="flex items-center gap-[var(--space-1)]">
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    className="w-8 h-8 text-[var(--color-gray-400)] hover:text-[var(--color-gray-700)] hover:bg-[var(--color-gray-100)]"
+                                    className="w-8 h-8 text-[var(--color-gray-400)] hover:text-[var(--color-gray-700)] hover:bg-[var(--color-gray-100)] cursor-pointer"
                                     title="View Details"
                                 >
                                     <Eye className="w-4 h-4" />
@@ -121,7 +121,7 @@ export function AssessmentTable({ assessments, onRowClick }: AssessmentTableProp
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    className="w-8 h-8 text-[var(--color-gray-400)] hover:text-[var(--color-gray-700)] hover:bg-[var(--color-gray-100)]"
+                                    className="w-8 h-8 text-[var(--color-gray-400)] hover:text-[var(--color-gray-700)] hover:bg-[var(--color-gray-100)] cursor-pointer"
                                     title="Download Report"
                                 >
                                     <Download className="w-4 h-4" />
@@ -129,7 +129,7 @@ export function AssessmentTable({ assessments, onRowClick }: AssessmentTableProp
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    className="w-8 h-8 text-[var(--color-gray-400)] hover:text-[var(--color-gray-700)] hover:bg-[var(--color-gray-100)]"
+                                    className="w-8 h-8 text-[var(--color-gray-400)] hover:text-[var(--color-gray-700)] hover:bg-[var(--color-gray-100)] cursor-pointer"
                                     title="More Options"
                                 >
                                     <MoreVertical className="w-4 h-4" />

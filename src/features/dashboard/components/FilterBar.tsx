@@ -8,6 +8,7 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import type { FilterBarProps } from '@/types';
 
 export function FilterBar({
@@ -17,7 +18,7 @@ export function FilterBar({
     statusOptions
 }: FilterBarProps) {
     return (
-        <div className="flex flex-col md:flex-row items-stretch md:items-center gap-3 flex-wrap">
+        <div className="flex flex-col md:flex-row items-stretch md:items-center gap-[var(--space-3)] flex-wrap">
             {/* Search Input */}
             <div className="relative flex-1 min-w-[240px] max-w-full md:max-w-[320px]">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-gray-400)] pointer-events-none" />
@@ -35,7 +36,7 @@ export function FilterBar({
                 value={filters.status || 'all'}
                 onValueChange={(value) => onFilterChange({ ...filters, status: value === 'all' ? '' : value as typeof filters.status })}
             >
-                <SelectTrigger className="w-full md:w-[140px] h-10 border-[var(--color-gray-300)]">
+                <SelectTrigger className="w-full md:w-[140px] h-10 border-[var(--color-gray-300)] cursor-pointer">
                     <SelectValue placeholder="All Status" />
                 </SelectTrigger>
                 <SelectContent>
@@ -53,7 +54,7 @@ export function FilterBar({
                 value={filters.type || 'all'}
                 onValueChange={(value) => onFilterChange({ ...filters, type: value === 'all' ? '' : value as typeof filters.type })}
             >
-                <SelectTrigger className="w-full md:w-[160px] h-10 border-[var(--color-gray-300)]">
+                <SelectTrigger className="w-full md:w-[160px] h-10 border-[var(--color-gray-300)] cursor-pointer">
                     <SelectValue placeholder="All Types" />
                 </SelectTrigger>
                 <SelectContent>
@@ -68,10 +69,16 @@ export function FilterBar({
 
             {/* Date Filter Button */}
             <Button
-                variant="outline"
-                className="h-10 gap-2 border-[var(--color-gray-300)] text-[var(--color-gray-700)] font-medium hover:border-[var(--color-gray-400)]"
+                variant={filters.last30Days ? "default" : "outline"}
+                onClick={() => onFilterChange({ ...filters, last30Days: !filters.last30Days })}
+                className={cn(
+                    "h-10 gap-2 cursor-pointer font-medium",
+                    filters.last30Days
+                        ? "bg-[var(--color-primary-600)] hover:bg-[var(--color-primary-700)] text-white border-transparent"
+                        : "border-[var(--color-gray-300)] text-[var(--color-gray-700)] hover:border-[var(--color-gray-400)]"
+                )}
             >
-                <Calendar className="w-4 h-4 text-[var(--color-gray-500)]" />
+                <Calendar className={cn("w-4 h-4", filters.last30Days ? "text-white" : "text-[var(--color-gray-500)]")} />
                 Last 30 days
             </Button>
         </div>

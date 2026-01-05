@@ -1,11 +1,8 @@
-import { getScoreColors } from '@/lib/utils';
-
 interface ScoreGaugeProps {
     score: number;
 }
 
 export function ScoreGauge({ score }: ScoreGaugeProps) {
-    const colors = getScoreColors(score);
 
     // Calculate stroke-dasharray for a semicircle
     // Circumference of a circle with radius 40 is 2 * PI * 40 = 251.3
@@ -20,6 +17,13 @@ export function ScoreGauge({ score }: ScoreGaugeProps) {
         <div className="flex flex-col items-center">
             <div className="relative w-48 h-24 overflow-hidden">
                 <svg viewBox="0 0 100 50" className="w-full h-full">
+                    <defs>
+                        <linearGradient id="gauge-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stopColor="var(--color-error-500)" />
+                            <stop offset="50%" stopColor="var(--color-warning-500)" />
+                            <stop offset="100%" stopColor="var(--color-success-500)" />
+                        </linearGradient>
+                    </defs>
                     {/* Background Arc */}
                     <path
                         d="M 10 50 A 40 40 0 0 1 90 50"
@@ -32,10 +36,10 @@ export function ScoreGauge({ score }: ScoreGaugeProps) {
                     <path
                         d="M 10 50 A 40 40 0 0 1 90 50"
                         fill="none"
-                        stroke="currentColor"
+                        stroke="url(#gauge-gradient)"
                         strokeWidth="10"
                         strokeLinecap="round"
-                        className={`transition-all duration-1000 ease-out ${colors.text.replace('text-', 'stroke-')}`}
+                        className="transition-all duration-1000 ease-out"
                         style={{
                             strokeDasharray: `${semiCircumference} ${circumference}`,
                             strokeDashoffset: dashOffset,

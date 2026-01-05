@@ -1,14 +1,15 @@
-import { getScoreColors } from '@/lib/utils';
+import { getScoreColors, cn } from '@/lib/utils';
 
 interface ScoreBarProps {
     score: number | null;
     showValue?: boolean;
+    className?: string;
 }
 
-export function ScoreBar({ score, showValue = true }: ScoreBarProps) {
+export function ScoreBar({ score, showValue = true, className }: ScoreBarProps) {
     if (score === null) {
         return (
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-[var(--space-2)]">
                 <span className="text-[13px] font-semibold text-[var(--color-gray-400)]">—</span>
             </div>
         );
@@ -17,8 +18,8 @@ export function ScoreBar({ score, showValue = true }: ScoreBarProps) {
     const colors = getScoreColors(score);
 
     return (
-        <div className="flex items-center gap-2.5">
-            <div className="w-[60px] h-1.5 bg-[var(--color-gray-200)] rounded-full overflow-hidden">
+        <div className="flex items-center gap-[var(--space-2)]">
+            <div className={cn("h-1.5 bg-[var(--color-gray-200)] rounded-full overflow-hidden", className)}>
                 <div
                     className={`h-full rounded-full transition-all duration-300 ${colors.bar}`}
                     style={{ width: `${score}%` }}

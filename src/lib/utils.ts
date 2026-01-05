@@ -119,6 +119,17 @@ export function filterAssessments(
       return false;
     }
 
+    // Last 30 days filter
+    if (filters.last30Days) {
+      const assessmentDate = new Date(assessment.date);
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+      if (assessmentDate < thirtyDaysAgo) {
+        return false;
+      }
+    }
+
     return true;
   });
 }

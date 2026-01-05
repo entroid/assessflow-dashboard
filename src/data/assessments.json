@@ -23,7 +23,7 @@
       "status": "completed",
       "score": 72,
       "scoreInterpretation": "Within Normal Range",
-      "date": "2024-12-08T14:30:00Z",
+      "date": "2026-01-02T14:30:00Z",
       "duration": "1h 45m",
       "administeredBy": {
         "id": "DR-001",
@@ -52,7 +52,7 @@
       "status": "in-progress",
       "score": 45,
       "scoreInterpretation": "Moderate",
-      "date": "2024-12-08T11:15:00Z",
+      "date": "2025-12-28T11:15:00Z",
       "duration": null,
       "administeredBy": {
         "id": "DR-002",
@@ -80,7 +80,7 @@
       "status": "completed",
       "score": 28,
       "scoreInterpretation": "Mild Anxiety",
-      "date": "2024-12-07T16:45:00Z",
+      "date": "2025-12-15T16:45:00Z",
       "duration": "45m",
       "administeredBy": {
         "id": "DR-001",

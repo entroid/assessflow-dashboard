@@ -16,12 +16,12 @@ export function Pagination({ pagination, onPageChange }: PaginationProps) {
     }
 
     return (
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4 border-t border-[var(--color-gray-200)] bg-[var(--color-gray-50)]">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-[var(--space-4)] px-[var(--space-6)] py-[var(--space-4)] border-t border-[var(--color-gray-200)] bg-[var(--color-gray-50)]">
             <span className="text-[13px] text-[var(--color-gray-500)]">
                 Showing {startItem}-{endItem} of {totalItems} assessments
             </span>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-[var(--space-2)]">
                 {/* Previous Button */}
                 <Button
                     variant="outline"
@@ -51,8 +51,8 @@ export function Pagination({ pagination, onPageChange }: PaginationProps) {
                             variant={page === currentPage ? "default" : "outline"}
                             size="icon"
                             className={`w-9 h-9 ${page === currentPage
-                                    ? 'bg-[var(--color-primary-600)] border-[var(--color-primary-600)] text-white hover:bg-[var(--color-primary-700)]'
-                                    : 'border-[var(--color-gray-300)]'
+                                ? 'bg-[var(--color-primary-600)] border-[var(--color-primary-600)] text-white hover:bg-[var(--color-primary-700)]'
+                                : 'border-[var(--color-gray-300)]'
                                 }`}
                             onClick={() => onPageChange(page)}
                         >

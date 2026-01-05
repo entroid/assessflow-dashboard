@@ -153,6 +153,8 @@ export interface FilterState {
     status: AssessmentStatus | '';
     /** Selected type filter (empty string = all) */
     type: AssessmentTypeCode | '';
+    /** Whether to filter for the last 30 days */
+    last30Days: boolean;
     /** Date range for filtering (optional implementation) */
     dateRange?: {
         start: Date | null;
