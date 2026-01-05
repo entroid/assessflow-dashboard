@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import assessmentData from '@/data/assessments.json';
 import { filterAssessments, paginateItems } from '@/lib/utils';
 import type { Assessment, FilterState, AssessmentData } from '@/types';
@@ -8,6 +8,7 @@ const PAGE_SIZE = 5;
 const data = assessmentData as AssessmentData;
 
 export function useAssessments() {
+    const [isLoading, setIsLoading] = useState(true);
     const [filters, setFilters] = useState<FilterState>({
         search: '',
         status: '',
@@ -17,6 +18,15 @@ export function useAssessments() {
 
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedAssessment, setSelectedAssessment] = useState<Assessment | null>(null);
+
+    // Simulate network delay
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 1500);
+
+        return () => clearTimeout(timer);
+    }, []);
 
     // Filter assessments based on current filters
     const filteredAssessments = useMemo(() => {
@@ -55,6 +65,7 @@ export function useAssessments() {
         statusOptions: data.statusOptions,
 
         // State
+        isLoading,
         filters,
         currentPage,
         pageSize: PAGE_SIZE,

@@ -7,7 +7,9 @@ import {
     AssessmentDetail
 } from './components';
 import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
+import { Skeleton } from '@/components/ui/Skeleton';
+import { EmptyState } from '@/components/ui/EmptyState';
+import { Plus, ClipboardX } from 'lucide-react';
 import { useAssessments } from './hooks/useAssessments';
 
 export function AssessmentDashboard() {
@@ -22,6 +24,7 @@ export function AssessmentDashboard() {
         pageSize,
         selectedAssessment,
         isDetailOpen,
+        isLoading,
         onFilterChange,
         onPageChange,
         onSelectAssessment,
@@ -49,33 +52,48 @@ export function AssessmentDashboard() {
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-[var(--space-4)] mb-[var(--space-6)]">
-                    <StatsCard
-                        label="Total Assessments"
-                        value={stats.totalAssessments}
-                        trend={stats.totalAssessmentsTrend}
-                        icon="document"
-                        iconColor="blue"
-                    />
-                    <StatsCard
-                        label="Completed"
-                        value={stats.completed}
-                        trend={stats.completedTrend}
-                        icon="check"
-                        iconColor="green"
-                    />
-                    <StatsCard
-                        label="In Progress"
-                        value={stats.inProgress}
-                        trend={stats.inProgressTrend}
-                        icon="clock"
-                        iconColor="yellow"
-                    />
-                    <StatsCard
-                        label="Active Patients"
-                        value={stats.activePatients}
-                        icon="users"
-                        iconColor="purple"
-                    />
+                    {isLoading ? (
+                        Array.from({ length: 4 }).map((_, i) => (
+                            <div key={i} className="bg-white border border-[var(--color-gray-200)] rounded-xl p-[var(--space-5)] flex flex-col gap-[var(--space-3)]">
+                                <div className="flex items-center justify-between">
+                                    <Skeleton className="w-10 h-10 rounded-lg" />
+                                    <Skeleton className="w-12 h-4 rounded" />
+                                </div>
+                                <Skeleton className="h-8 w-16" />
+                                <Skeleton className="h-4 w-24" />
+                            </div>
+                        ))
+                    ) : (
+                        <>
+                            <StatsCard
+                                label="Total Assessments"
+                                value={stats.totalAssessments}
+                                trend={stats.totalAssessmentsTrend}
+                                icon="document"
+                                iconColor="blue"
+                            />
+                            <StatsCard
+                                label="Completed"
+                                value={stats.completed}
+                                trend={stats.completedTrend}
+                                icon="check"
+                                iconColor="green"
+                            />
+                            <StatsCard
+                                label="In Progress"
+                                value={stats.inProgress}
+                                trend={stats.inProgressTrend}
+                                icon="clock"
+                                iconColor="yellow"
+                            />
+                            <StatsCard
+                                label="Active Patients"
+                                value={stats.activePatients}
+                                icon="users"
+                                iconColor="purple"
+                            />
+                        </>
+                    )}
                 </div>
 
                 {/* Filter Bar */}
@@ -92,6 +110,7 @@ export function AssessmentDashboard() {
                 <AssessmentTable
                     assessments={assessments}
                     onRowClick={onSelectAssessment}
+                    isLoading={isLoading}
                 />
                 <Pagination
                     pagination={{
@@ -105,9 +124,29 @@ export function AssessmentDashboard() {
 
             {/* Card Layout - Mobile */}
             <div className="md:hidden space-y-[var(--space-4)]">
-                {assessments.length === 0 ? (
-                    <div className="p-[var(--space-8)] text-center bg-white border border-[var(--color-gray-200)] rounded-xl">
-                        <p className="text-[var(--color-gray-500)]">No assessments found matching your criteria.</p>
+                {isLoading ? (
+                    Array.from({ length: 3 }).map((_, i) => (
+                        <div key={i} className="bg-white border border-[var(--color-gray-200)] rounded-xl p-4 space-y-4">
+                            <div className="flex items-center gap-3">
+                                <Skeleton className="w-10 h-10 rounded-full" />
+                                <div className="space-y-2">
+                                    <Skeleton className="h-4 w-32" />
+                                    <Skeleton className="h-3 w-24" />
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <Skeleton className="h-4 w-full" />
+                                <Skeleton className="h-4 w-2/3" />
+                            </div>
+                        </div>
+                    ))
+                ) : assessments.length === 0 ? (
+                    <div className="border border-dashed border-[var(--color-gray-300)] rounded-lg bg-[var(--color-gray-50)]">
+                        <EmptyState
+                            icon={ClipboardX}
+                            title="No assessments found"
+                            description="No assessments match your current filters. Try generating a new assessment or adjusting your filters."
+                        />
                     </div>
                 ) : (
                     assessments.map((assessment) => (
@@ -118,16 +157,18 @@ export function AssessmentDashboard() {
                         />
                     ))
                 )}
-                <div className="bg-white border border-[var(--color-gray-200)] rounded-xl overflow-hidden">
-                    <Pagination
-                        pagination={{
-                            currentPage,
-                            pageSize,
-                            totalItems: totalAssessments,
-                        }}
-                        onPageChange={onPageChange}
-                    />
-                </div>
+                {!isLoading && (
+                    <div className="bg-white border border-[var(--color-gray-200)] rounded-xl overflow-hidden">
+                        <Pagination
+                            pagination={{
+                                currentPage,
+                                pageSize,
+                                totalItems: totalAssessments,
+                            }}
+                            onPageChange={onPageChange}
+                        />
+                    </div>
+                )}
             </div>
 
             {/* Detail Panel */}

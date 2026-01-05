@@ -1,6 +1,8 @@
-import { Eye, Download, MoreVertical, FileText } from 'lucide-react';
+import { Eye, Download, MoreVertical, FileText, ClipboardX } from 'lucide-react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/Skeleton';
+import { EmptyState } from '@/components/ui/EmptyState';
 import {
     Table,
     TableBody,
@@ -14,11 +16,88 @@ import { ScoreBar } from './ScoreBar';
 import { formatDate, formatTime } from '@/lib/utils';
 import type { AssessmentTableProps } from '@/types';
 
-export function AssessmentTable({ assessments, onRowClick }: AssessmentTableProps) {
+interface ExtendedAssessmentTableProps extends AssessmentTableProps {
+    isLoading?: boolean;
+}
+
+export function AssessmentTable({ assessments, onRowClick, isLoading }: ExtendedAssessmentTableProps) {
+    if (isLoading) {
+        return (
+            <Table>
+                <TableHeader>
+                    <TableRow className="bg-[var(--color-gray-50)] hover:bg-[var(--color-gray-50)]">
+                        <TableHead className="text-xs font-semibold text-[var(--color-gray-500)] uppercase tracking-wider py-[var(--space-4)] pl-[var(--space-6)]">
+                            Patient
+                        </TableHead>
+                        <TableHead className="text-xs font-semibold text-[var(--color-gray-500)] uppercase tracking-wider py-[var(--space-4)]">
+                            Assessment Type
+                        </TableHead>
+                        <TableHead className="text-xs font-semibold text-[var(--color-gray-500)] uppercase tracking-wider py-[var(--space-4)]">
+                            Status
+                        </TableHead>
+                        <TableHead className="text-xs font-semibold text-[var(--color-gray-500)] uppercase tracking-wider py-[var(--space-4)]">
+                            Score
+                        </TableHead>
+                        <TableHead className="text-xs font-semibold text-[var(--color-gray-500)] uppercase tracking-wider py-[var(--space-4)]">
+                            Date
+                        </TableHead>
+                        <TableHead className="text-xs font-semibold text-[var(--color-gray-500)] uppercase tracking-wider py-[var(--space-4)] pr-[var(--space-6)]">
+                            Actions
+                        </TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {Array.from({ length: 5 }).map((_, index) => (
+                        <TableRow key={index} className="hover:bg-transparent">
+                            <TableCell className="pl-[var(--space-6)] py-[var(--space-4)]">
+                                <div className="flex items-center gap-[var(--space-3)]">
+                                    <Skeleton className="w-10 h-10 rounded-full" />
+                                    <div className="flex flex-col gap-[var(--space-2)]">
+                                        <Skeleton className="h-4 w-32" />
+                                        <Skeleton className="h-3 w-24" />
+                                    </div>
+                                </div>
+                            </TableCell>
+                            <TableCell className="py-[var(--space-4)]">
+                                <div className="flex items-center gap-[var(--space-2)]">
+                                    <Skeleton className="w-7 h-7 rounded-md" />
+                                    <Skeleton className="h-4 w-24" />
+                                </div>
+                            </TableCell>
+                            <TableCell className="py-[var(--space-4)]">
+                                <Skeleton className="h-6 w-20 rounded-full" />
+                            </TableCell>
+                            <TableCell className="py-[var(--space-4)]">
+                                <Skeleton className="h-2 w-[60px] rounded-full" />
+                            </TableCell>
+                            <TableCell className="py-[var(--space-4)]">
+                                <div className="flex flex-col gap-[var(--space-2)]">
+                                    <Skeleton className="h-4 w-24" />
+                                    <Skeleton className="h-3 w-16" />
+                                </div>
+                            </TableCell>
+                            <TableCell className="pr-[var(--space-6)]">
+                                <div className="flex items-center gap-[var(--space-1)]">
+                                    <Skeleton className="w-8 h-8 rounded-md" />
+                                    <Skeleton className="w-8 h-8 rounded-md" />
+                                    <Skeleton className="w-8 h-8 rounded-md" />
+                                </div>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        );
+    }
+
     if (assessments.length === 0) {
         return (
-            <div className="p-[var(--space-12)] text-center">
-                <p className="text-[var(--color-gray-500)]">No assessments found matching your criteria.</p>
+            <div className="border border-dashed border-[var(--color-gray-300)] rounded-lg bg-[var(--color-gray-50)]">
+                <EmptyState
+                    icon={ClipboardX}
+                    title="No assessments found"
+                    description="No assessments match your current filters. Try generating a new assessment or adjusting your filters."
+                />
             </div>
         );
     }

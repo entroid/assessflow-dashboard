@@ -29,14 +29,14 @@ A professional, responsive Patient Assessment Dashboard built with React, TypeSc
 npm run build
 ```
 
-## 🛠️ Tech Stack
+## Tech Stack
 - **Framework:** React 19 (Vite)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS 4
 - **Components:** ShadCN UI (Primitives)
 - **Icons:** Lucide React
 
-## 💡 Engineering Approach
+## Engineering Approach
 
 ### 1. Feature-Based Architecture
 The project follows a modular "Feature-Based Architecture". Instead of grouping files purely by type (components, hooks), related logic is grouped into functional features (e.g., `src/features/dashboard`). This makes the codebase highly scalable and easier to maintain as new domains (Patients, Reports) are added.
@@ -50,11 +50,25 @@ The dashboard uses a layout-switching strategy:
 - **Mobile:** A card-based list view optimized for touch and smaller viewports.
 - **Shared Primitives:** Common data badges and score visualizations are shared across both layouts.
 
-## 🧠 Key Decisions & Assumptions
+## Key Decisions & Assumptions
 - **Client-Side Processing:** As the project currently uses mock data, all filtering, searching, and pagination logic is handled in the frontend via a custom `useAssessments` hook.
 - **Tailwind 4 Integration:** Leveraged the latest Tailwind CSS 4 features, including simplified configuration and better support for CSS variables.
 - **Accessibility:** Built on top of Radix primitives (via ShadCN) to ensure proper keyboard navigation and screen reader support for complex components like the slide-over detail panel.
 
-## ⏱️ Project Summary
+## Project Summary
 - **Total Time Spent:** ~5 hours
 - **Status:** Complete (Feature-complete & Verified Layout)
+
+
+
+## Future improvements
+- **Advanced Data Visualization:** Integration of interactive charts (e.g., Recharts) to visualize assessment trends and patient progress over time.
+- **Micro-interactions & Animations:** Implementation of Framer Motion for smooth transitions between dashboard views and more fluid slide-over panel entries.
+- **Slider Skeleton Loading States:** Skeleton screen to improve perceived performance and prevent layout shifts during data fetching for the slider.
+- **Customizable Dashboard:** Allowing users to toggle column visibility, reorder widgets, or save custom filter views based on their specific clinical workflow.
+- **Dark Mode Support:** A dedicated dark theme to reduce eye strain for clinicians working in various lighting environments.
+- **Enhanced Accessibility:** Conduct a comprehensive WCAG 2.1 audit to ensure optimal contrast ratios and specialized keyboard shortcuts for power users.
+- **Dashboard Table action buttons functionality:** Implementation of the download report and extra functionality for the action buttons in the dashboard table.
+- **Clear all filters button:** Implementation of the clear all filters button in the dashboard table to enhance user experience.
+
+   
