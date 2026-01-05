@@ -139,11 +139,11 @@ export function AssessmentDetail({ assessment, isOpen, onClose }: AssessmentDeta
 
                 {/* Footer */}
                 <div className="p-[var(--space-6)] border-t border-[var(--color-gray-200)] flex gap-[var(--space-3)] bg-[var(--color-gray-50)] ">
-                    <Button variant="outline" className="flex-1 gap-[var(--space-2)] border-[var(--color-gray-300)] h-11">
+                    <Button variant="outline" className="cursor-pointer flex-1 gap-[var(--space-2)] border-[var(--color-gray-300)] h-11">
                         <Download className="w-4 h-4" />
                         Download Report
                     </Button>
-                    <Button className="flex-1 gap-[var(--space-2)] bg-[var(--color-primary-600)] hover:bg-[var(--color-primary-700)] text-white h-11">
+                    <Button className="cursor-pointer flex-1 gap-[var(--space-2)] bg-[var(--color-primary-600)] hover:bg-[var(--color-primary-700)] text-white h-11">
                         <Edit3 className="w-4 h-4" />
                         Edit Assessment
                     </Button>
